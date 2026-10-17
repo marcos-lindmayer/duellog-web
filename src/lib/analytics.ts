@@ -14,7 +14,7 @@ export function wilson(wins: number, losses: number) {
 }
 export function selectDuels(dataset: Dataset, tournyOnly: boolean, days = 0) {
   const cutoff = days ? Date.now() / 1000 - days * 86400 : 0
-  return dataset.duels.filter(duel => duel.timestamp >= cutoff && (!tournyOnly || (tournyName(duel.winner) && tournyName(duel.loser))))
+  return dataset.duels.filter(duel => duel.winnerClass !== 'UNKNOWN' && duel.loserClass !== 'UNKNOWN' && duel.timestamp >= cutoff && (!tournyOnly || (tournyName(duel.winner) && tournyName(duel.loser))))
 }
 export function buildPlayers(duels: Duel[], classes: Dataset['playerClasses']) {
   const players = new Map<string, Player>(), opponents = new Map<string, Map<string, number>>()
